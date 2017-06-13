@@ -25,7 +25,7 @@
  *  More about the photoresistors: https://en.wikipedia.org/wiki/Photoresistor
  *  
  *  
- *  Created on June 12 2018 by Peter Dalmaris
+ *  Created on June 12 2017 by Peter Dalmaris
  * 
  */
 
