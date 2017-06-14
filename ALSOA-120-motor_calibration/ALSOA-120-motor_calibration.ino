@@ -1,16 +1,14 @@
-/*  <--- Arduino Robot Servo motors Wheels --->
+/*  <--- Arduino Robot Servo motors Wheels calibration --->
  * 
- * This sketch Shows the basic movements of the servo motors.
+ * This sketch assists in calibrating the resting position of the continuous rotation servo.
+ * You can also use it to test your servos.
  * 
  * Components  used in this sketch
  * ----------
  *  - Arduino Uno
  *  - Breadboard  
  *  - 2 x Continuous Rotation Servo (SpringRC SM-S4303R)
- *  - 2 x 330μF capacitors 
- *  - Magician Robot Chassis 
- *  - 2 x plastic wheels 6cm diameter, 0.7cm width 
- *  - 1 x 9V battery and 4 x 1.5V batteries 
+ *  - 1 x 330μF capacitors 
  *    
  *  Libraries
  *  ---------
@@ -18,25 +16,46 @@
  *
  * Connections 
  * -----------
- *  The schematic is shown in Chapter Two. 
- *  This is not a standalone circuit.
+ *  For the both motors:
+ *  - Connect the black wire to GND rail on the breadboard
+ *  - Connect the red wire to 5V rail on the breadboard
+ *  
+ *  For the left motor:
+ *  - Connect the white wire to digital pin 10
+ *  
+ *  For the right motor:
+ *  - Connect the white wire to digital pin 11
+ *  
+ *  For the breadboard:
+ *  - Connect the GND rail of the breaboard to the GND pin of the Arduino
+ *  - Connect the 5V rail of the breaboard to the 5V pin of the Arduino
+ *  
+ *  For the capacitors:
+ *  - Plug the capacitor directly on the power rail of the breadboard. If you are
+ *    using an electrolitic capacitor, beware of the polarity.
+ *  
+ *  
  * 
  * Other information
  * -----------------
  *  Always remember to plug in the Servo Motors batteries first and then the Arduino batteries.
  *  
+
  *  
  *  Created on February 7 2017 by Evangelos Chantzis
+ *  Updated on June 14 2017 by Peter Dalmaris
  * 
  */
 
 #include <Servo.h> //include Servo library
 
-const int RForward = 120;  //the speed of the servo, maximum speed is 180
+const int RForward = 120;   //the speed of the servo, maximum speed is 180
 const int RBackward = 60;   
+
 const int LForward = 60; 
 const int LBackward = 120; 
-const int RNeutral = 90;  //centered position
+
+const int RNeutral = 90;    //centered position
 const int LNeutral = 90;
 
 Servo leftMotor;  //declare motors

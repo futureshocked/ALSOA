@@ -15,45 +15,65 @@
  *  Libraries
  *  ---------
  *  - Servo.h
+ *  - HC_SR04.h   (Download from txplo.re/HC_SR04lib)
  *
  * Connections 
  * -----------
- *  The schematic is shown in Chapter Two. 
- *  This is not a standalone circuit.
+ *  - Connect HC_SR04 trig pin to Arduino pin 3
+ *  - Connect HC_SR04 echo pin to Arduino pin 2
+ *  - Connect the motor black wire to GND rail on the breadboard
+ *  - Connect the motor red wire to 5V rail on the breadboard
+ *  - Connect the motor white wire to digital pin 6
+ *  
+ *  For the breadboard:
+ *  - Connect the GND rail of the breaboard to the GND pin of the Arduino
+ *  - Connect the 5V rail of the breaboard to the 5V pin of the Arduino
+ *  
+ *  For the capacitors:
+ *  - Plug the capacitor directly on the power rail of the breadboard. If you are
+ *    using an electrolitic capacitor, beware of the polarity.
+ * 
  * 
  * Other information
  * -----------------
- *  Always remember to plug in the Servo Motors batteries first and then the Arduino batteries.
- *  
+ *  Original code is available at https://github.com/jazzycamel/arduino/tree/master/ultrasonic
+ *  Download the HC_SR04 library as used in this course from txplo.re/HC_SR04lib
  *  
  *  Created on February 7 2017 by Evangelos Chantzis
+ *  Modified on June 14 2017 by Peter Dalmaris
  * 
  */
 
 #include <Servo.h> //include Servo library
 
-#define trigPin 7  //the trig pin from distance sensor
-#define echoPin 4  //the echo pin from distance sensor
+#include <HC_SR04.h>
 
-const int collisionThresh = 15; //threshold for obstacles (in cm)
-long duration; //time it takes to recieve PING))) signal
-int leftDistance, rightDistance; //distances on either side
-Servo panMotor;  //micro servo with the distance sensor on it
+#define TRIG_PIN 3   // HC_SR04 trig pin to Arduino pin 3
+#define ECHO_PIN 2   // HC_SR04 echo pin to Arduino pin 2 (this pin is Arduino's interrupt pin 0)
+#define ECHO_INT 0   // The HC_SR04 echo pin is connected to Arduino pin 2 which is interrupt id 0)  
+
+HC_SR04 sensor(TRIG_PIN, ECHO_PIN, ECHO_INT);  // Create the sensor object
+
+const int collisionThresh = 15;         //threshold for obstacles (in cm)
+long      duration;                     //time it takes to recieve PING))) signal
+int       leftDistance, rightDistance;  //distances on either side
+Servo     panMotor;                     //micro servo with the distance sensor on it
 
 void setup()
 {
-  panMotor.attach(6); 
-  panMotor.write(90); //center the pan servo
+  panMotor.attach(6);          // connect servo to pin 6
+  panMotor.write(90);          // center the pan servo
 
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  sensor.begin();              // Setup the sensor
+  
   Serial.begin(9600);
   Serial.println("This monitor will show us where the robot will go");
 }
 
 void loop(){
   int distance = ping();  //call the ping function to get the distance in front of the robot
-
+  Serial.print(distance);
+  Serial.println("cm");
   if (distance > collisionThresh) //if path is clear be guided from the light
   {
     Serial.println("Forward, path clear!");
@@ -63,13 +83,13 @@ void loop(){
   { 
     panMotor.write(0); 
     delay(500);
-    leftDistance = ping(); //scan to the right
+    leftDistance = ping();  //scan to the right
     delay(500);
     panMotor.write(180);
     delay(700);
     rightDistance = ping(); //scan to the left
     delay(500);
-    panMotor.write(90); //return to center
+    panMotor.write(90);     //return to center
     delay(100);
     compareDistance();
   }
@@ -96,16 +116,9 @@ void compareDistance()
 
 long ping()
 {
-  // Send out PING))) signal pulse
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(trigPin, LOW);
+  sensor.start();                         // Start the sensor to take a distance measurement
   
-  //Get duration it takes to receive echo
-  duration = pulseIn(echoPin, HIGH);
-  
-  //Convert duration into distance
-  return duration / 29 / 2;
+  while(!sensor.isFinished()) {};         // Wait until the sensor returns a reading. We need a valid value before we can continue.
+
+  return sensor.getRange();               // The sensor has returned a reading, get it and return it to the caller.
 }
