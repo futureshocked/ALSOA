@@ -43,9 +43,9 @@ void setup(){
 }
 
 void loop(){
-  sensor.start();                         // Start the sensor
-  while(!sensor.isFinished()) continue;   // If the sensor does not have a reading, end this loop (skip the rest of the instructions
-  Serial.print(sensor.getRange());        // if the sensor has a reading, print out its reading
+  sensor.start();                      // Start the sensor
+  while(!sensor.isFinished()) {};   // If the sensor does not have a reading, continue
+  Serial.print(sensor.getRange());     // if the sensor has a reading, print out its reading
   Serial.println("cm");
   delay(1000);
 }

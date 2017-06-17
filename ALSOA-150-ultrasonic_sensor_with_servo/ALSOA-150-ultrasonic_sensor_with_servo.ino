@@ -22,12 +22,17 @@
  *  - Connect HC_SR04 trig pin to Arduino pin 3
  *  - Connect HC_SR04 echo pin to Arduino pin 2
  *  - Connect the motor black wire to GND rail on the breadboard
- *  - Connect the motor red wire to 5V rail on the breadboard
+ *  - Connect the motor red wire to 6V rail on the breadboard. You can get 6V
+ *    from a 1.5V AA x 4 battery pack. If you don't have one, it is safe to power
+ *    the motor from the Arduino 5V pin.
  *  - Connect the motor white wire to digital pin 6
  *  
  *  For the breadboard:
- *  - Connect the GND rail of the breaboard to the GND pin of the Arduino
- *  - Connect the 5V rail of the breaboard to the 5V pin of the Arduino
+ *  - Connect the GND rail of the breaboard to the GND pin of the Arduino and 
+ *    the GND wire of the battery pack.
+ *  - Connect the red rail of the breaboard to the 6V wire of the the 
+ *    1.5V AA x 4 battery pack or the 5V pin of the Arduino.
+ *    
  *  
  *  For the capacitors:
  *  - Plug the capacitor directly on the power rail of the breadboard. If you are
@@ -55,7 +60,6 @@
 HC_SR04 sensor(TRIG_PIN, ECHO_PIN, ECHO_INT);  // Create the sensor object
 
 const int collisionThresh = 15;         //threshold for obstacles (in cm)
-long      duration;                     //time it takes to recieve PING))) signal
 int       leftDistance, rightDistance;  //distances on either side
 Servo     panMotor;                     //micro servo with the distance sensor on it
 

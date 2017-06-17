@@ -18,7 +18,8 @@
  * -----------
  *  For the both motors:
  *  - Connect the black wire to GND rail on the breadboard
- *  - Connect the red wire to 5V rail on the breadboard
+ *  - Connect the red wire to 6V rail on the breadboard. You can 
+ *    get 6V from a 1.5V AA x 4 alkaline battery pack.
  *  
  *  For the left motor:
  *  - Connect the white wire to digital pin 10
@@ -28,7 +29,6 @@
  *  
  *  For the breadboard:
  *  - Connect the GND rail of the breaboard to the GND pin of the Arduino
- *  - Connect the 5V rail of the breaboard to the 5V pin of the Arduino
  *  
  *  For the capacitors:
  *  - Plug the capacitor directly on the power rail of the breadboard. If you are
@@ -71,8 +71,8 @@ void loop() {
   // Uncomment each of the following lines, one by one, in order to 
   // calibrate the motors and ensure that they move as expected.
   // Always start with the neutral positions, where the motors are not moving.
- leftMotor.write(LNeutral); //stop
- rightMotor.write(RNeutral);
+// leftMotor.write(LNeutral); //stop
+// rightMotor.write(RNeutral);
 // delay(1500);
 
 // leftMotor.write(LForward); //forward

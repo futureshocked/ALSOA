@@ -1,4 +1,4 @@
-/*  <--- Arduino Ultrasonic Distance sensor with micro Servo --->
+/*  <--- Testing the micro servo --->
  * 
  * This sketch causes a micro servo to
  * turn left, right and center.
