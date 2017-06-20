@@ -34,8 +34,8 @@
 
 const int RightLightSensor  = 0;  //declare the analog pins for the photoresistors
 const int LeftLightSensor   = 2;
-const int RightLEDIndicator = 2;  // This is digital pin
-const int LeftLEDIndicator  = 3;  // This is digital pin
+const int RightLEDIndicator = 5;  // This is digital pin
+const int LeftLEDIndicator  = 4;  // This is digital pin
 int       threshold_pot     = 4;  // Use this potentiometer to calibrate the threshold of
                                   // the sensors to the light source.
 int       closeness         = 50; // This value defines when the left and right light
