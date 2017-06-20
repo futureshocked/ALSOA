@@ -106,8 +106,7 @@ void loop() {
   // and the difference between the values is large, then
   // the light source is towards the left, so robot should turn left. 
   else if ( SensorLeft       <  SensorRight &&       
-            SensorLeft       >= threshold/2 &&            
-            SensorRight      >= threshold/2 ) 
+            SensorLeft       >= threshold/2 ) 
             { 
               Serial.print("Right");
               digitalWrite(RightLEDIndicator, LOW);
@@ -119,8 +118,7 @@ void loop() {
   // and the difference between the values is large, then
   // the light source is towards the right, so robot should turn right. 
   else if ( SensorLeft       >  SensorRight  &&        
-            SensorLeft       >= threshold/2  &&            
-            SensorRight      >= threshold/2 ) 
+            SensorLeft       >= threshold/2   ) 
             { 
                 Serial.print("Left");
                 digitalWrite(RightLEDIndicator, HIGH);
