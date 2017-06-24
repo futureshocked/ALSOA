@@ -71,12 +71,12 @@ void loop() {
   // Uncomment each of the following lines, one by one, in order to 
   // calibrate the motors and ensure that they move as expected.
   // Always start with the neutral positions, where the motors are not moving.
- leftMotor.write(LNeutral); //stop
- rightMotor.write(RNeutral);
+// leftMotor.write(LNeutral); //stop
+// rightMotor.write(RNeutral);
 // delay(1500);
 
-// leftMotor.write(LForward); //forward
-// rightMotor.write(RForward);   
+ leftMotor.write(LForward); //forward
+ rightMotor.write(RForward);   
 // delay(1500);
 //  
 // leftMotor.write(LBackward); //left turn
