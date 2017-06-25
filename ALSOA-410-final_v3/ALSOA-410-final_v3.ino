@@ -180,8 +180,6 @@ void loop(){
             SensorLeft       >= threshold/2 ) 
             { 
                 Serial.print("Left");
-//                leftMotor.write(LNeutral);   // Stop the left motor
-//      rightMotor.write(RNeutral);  // Stop the right motor
                 leftMotor.write(LBackward); 
                 rightMotor.write(RForward); 
                 digitalWrite(RightLEDIndicator, HIGH);
@@ -198,15 +196,8 @@ void loop(){
                 leftMotor.write(LBackwardHalf); 
                 rightMotor.write(RForwardHalf); 
                 delay(250);
-//                for (int i = 0; i <2; i++)  // Make the LEDs blink fast
-//                {
                 digitalWrite(RightLEDIndicator, LOW);
                 digitalWrite(LeftLEDIndicator, LOW);
-//                delay(50);
-//                digitalWrite(RightLEDIndicator, HIGH);
-//                digitalWrite(LeftLEDIndicator, HIGH);
-//                delay(50);
-//                }
             }
   }
   else    // The path is blocked, so the robot will use the distance sensor to find a clear path
